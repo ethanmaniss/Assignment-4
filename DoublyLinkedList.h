@@ -15,11 +15,11 @@ class DoublyLinkedList
         DoublyLinkedList();
         ~DoublyLinkedList();
 
-        void insertFront(E d);
-        void insertBack(E d);
+        void insertFront(E data);
+        void insertBack(E data);
         E removeFront();
         E removeBack();
-        E deletePos(int pos); // removeAt()
+        E remove(E d); // removeAt()
         E find(int d); // contains()
 
         bool isEmpty();
