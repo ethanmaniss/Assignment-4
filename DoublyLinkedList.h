@@ -19,8 +19,13 @@ class DoublyLinkedList
         void insertBack(E data);
         E removeFront();
         E removeBack();
+<<<<<<< HEAD
         E remove(E d); // removeAt()
         E find(int d); // contains()
+=======
+        E deletePos(int pos); // removeAt()
+        E find(E d); // contains()
+>>>>>>> da6b65bcb8f0d828b174521aa79391deb2f3b127
 
         bool isEmpty();
         void printList();
@@ -49,7 +54,11 @@ DoublyLinkedList::~DoublyLinkedList()
 }
 
 template <typename E>
+<<<<<<< HEAD
+void DoublyLinkedList::insertFront(E d)
+=======
 void DoublyLinkedList::insertFront(E data)
+>>>>>>> 79f1bea7917abf3992157b84c48bc80f0ded70f9
 {
     ListNode *node = new ListNode(data);
 
@@ -70,7 +79,7 @@ void DoublyLinkedList::insertFront(E data)
 }
 
 template <typename E>
-int DoublyLinkedList::removeFront()
+E DoublyLinkedList::removeFront()
 {
     // check if it's empty before proceeding
 
@@ -96,7 +105,11 @@ int DoublyLinkedList::removeFront()
 }
 
 template <typename E>
+<<<<<<< HEAD
+void DoublyLinkedList::insertBack(E d)
+=======
 void DoublyLinkedList::insertBack(E data)
+>>>>>>> 79f1bea7917abf3992157b84c48bc80f0ded70f9
 {
     ListNode *node = new ListNode(data);
 
@@ -117,7 +130,7 @@ void DoublyLinkedList::insertBack(E data)
 }
 
 template <typename E>
-int DoublyLinkedList::removeBack()
+E DoublyLinkedList::removeBack()
 {
     // check if the list is empty
 
