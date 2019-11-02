@@ -49,9 +49,9 @@ DoublyLinkedList::~DoublyLinkedList()
 }
 
 template <typename E>
-void DoublyLinkedList::insertFront(int d)
+void DoublyLinkedList::insertFront(E data)
 {
-    ListNode *node = new ListNode(d);
+    ListNode *node = new ListNode(data);
 
     if(isEmpty())
     {
@@ -96,9 +96,9 @@ int DoublyLinkedList::removeFront()
 }
 
 template <typename E>
-void DoublyLinkedList::insertBack(int d)
+void DoublyLinkedList::insertBack(E data)
 {
-    ListNode *node = new ListNode(d);
+    ListNode *node = new ListNode(data);
 
     if(isEmpty()) // size == 0
     {
@@ -142,7 +142,7 @@ int DoublyLinkedList::removeBack()
 }
 
 template <typename E>
-ListNode* DoublyLinkedList::remove(int d) // aka int key
+ListNode* DoublyLinkedList::remove(E d) // aka int key
 {
     // check if it's empty before attempting to remove
 
