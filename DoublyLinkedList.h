@@ -49,13 +49,9 @@ DoublyLinkedList::~DoublyLinkedList()
 }
 
 template <typename E>
-<<<<<<< HEAD
 void DoublyLinkedList::insertFront(E d)
-=======
-void DoublyLinkedList::insertFront(E data)
->>>>>>> 79f1bea7917abf3992157b84c48bc80f0ded70f9
 {
-    ListNode *node = new ListNode(data);
+    ListNode *node = new ListNode(d);
 
     if(isEmpty())
     {
@@ -100,13 +96,9 @@ E DoublyLinkedList::removeFront()
 }
 
 template <typename E>
-<<<<<<< HEAD
 void DoublyLinkedList::insertBack(E d)
-=======
-void DoublyLinkedList::insertBack(E data)
->>>>>>> 79f1bea7917abf3992157b84c48bc80f0ded70f9
 {
-    ListNode *node = new ListNode(data);
+    ListNode *node = new ListNode(d);
 
     if(isEmpty()) // size == 0
     {

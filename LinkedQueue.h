@@ -21,27 +21,32 @@ class LinkedQueue
         int n; // number of elements in list
 };
 
+template <typename E>
 LinkedQueue::LinkedQueue() // default constructor
 {
     DoublyLinkedList L = DoublyLinkedList();
     n = 0;
 }
 
+template <typename E>
 LinkedQueue::~LinkedQueue() // destructor
 {
 
 }
 
+template <typename E>
 int LinkedQueue::size()
 {
     return n;
 }
 
+template <typename E>
 bool LinkedQueue::isEmpty()
 {
     return(n == 0);
 }
 
+template <typename E>
 E& LinkedQueue::front()
 {
     if(isEmpty())
@@ -51,12 +56,14 @@ E& LinkedQueue::front()
     return L.removeFront();
 }
 
+template <typename E>
 void LinkedQueue::enqueue(E& e)
 {
     L.insertFront(e);
     n++;
 }
 
+template <typename E>
 void LinkedQueue::dequeue()
 {
     if(isEmpty())
