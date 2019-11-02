@@ -20,7 +20,7 @@ class DoublyLinkedList
         E removeFront();
         E removeBack();
         E deletePos(int pos); // removeAt()
-        E find(int d); // contains()
+        E find(E d); // contains()
 
         bool isEmpty();
         void printList();
@@ -49,7 +49,7 @@ DoublyLinkedList::~DoublyLinkedList()
 }
 
 template <typename E>
-void DoublyLinkedList::insertFront(int d)
+void DoublyLinkedList::insertFront(E d)
 {
     ListNode *node = new ListNode(d);
 
@@ -70,7 +70,7 @@ void DoublyLinkedList::insertFront(int d)
 }
 
 template <typename E>
-int DoublyLinkedList::removeFront()
+E DoublyLinkedList::removeFront()
 {
     // check if it's empty before proceeding
 
@@ -96,7 +96,7 @@ int DoublyLinkedList::removeFront()
 }
 
 template <typename E>
-void DoublyLinkedList::insertBack(int d)
+void DoublyLinkedList::insertBack(E d)
 {
     ListNode *node = new ListNode(d);
 
@@ -117,7 +117,7 @@ void DoublyLinkedList::insertBack(int d)
 }
 
 template <typename E>
-int DoublyLinkedList::removeBack()
+E DoublyLinkedList::removeBack()
 {
     // check if the list is empty
 
@@ -142,7 +142,7 @@ int DoublyLinkedList::removeBack()
 }
 
 template <typename E>
-ListNode* DoublyLinkedList::remove(int d) // aka int key
+ListNode* DoublyLinkedList::remove(E d) // aka int key
 {
     // check if it's empty before attempting to remove
 
