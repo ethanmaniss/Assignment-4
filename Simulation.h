@@ -66,13 +66,16 @@ void Simulation::fileInput(string f) // string passed in will be the file name
     {
         getline(file, line);
         windowsOpen = stoi(line);
-        getline(file, line);
-        timeStudentsArrival = stoi(line);
-        getline(file, line);
-        numStudentsArriving = stoi(line);
-        for (int i = 0; i < numStudentsArriving; ++i)
+        while(getline(file, line))
         {
-
+          timeStudentsArrival = stoi(line);
+          getline(file, line);
+          numStudentsArriving = stoi(line);
+          for (int i = 0; i < numStudentsArriving; ++i)
+          {
+            Student s(getline(file, line), timeStudentsArrival);
+            q.enqueue(s);
+          }
         }
         file.close();
     }
