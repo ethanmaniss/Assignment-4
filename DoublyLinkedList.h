@@ -21,6 +21,7 @@ class DoublyLinkedList
         E removeBack();
         E deletePos(int pos); // removeAt()
         E find(E d); // contains()
+        E& peek();
 
         bool isEmpty();
         void printList();
@@ -196,4 +197,18 @@ template <typename E>
 bool DoublyLinkedList::isEmpty()
 {
     return (front == NULL);
+}
+
+template <typename E>
+E& DoublyLinkedList::peek()
+{
+    if(!isEmpty())
+    {
+        return front->data;
+    }
+    else
+    {
+        cout << "Linked List is empty." << endl;
+        return NULL;
+    }
 }

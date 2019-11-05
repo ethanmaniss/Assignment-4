@@ -5,11 +5,17 @@ using namespace std;
 
 Student::Student() // student default constructor
 {
-    int timeNeeded = 0;
-    int timeWaited = 0;
+    timeNeeded = 0;
+    timeWaited = 0;
+    arrivalTime = 0;
 }
 
 Student::~Student() // student destructor
+{
+
+}
+
+Student::Student(int timeNeeded, int timeWaited, int arrivalTime)
 {
 
 }

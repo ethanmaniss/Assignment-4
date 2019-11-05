@@ -49,27 +49,35 @@ bool LinkedQueue::isEmpty()
 template <typename E>
 E& LinkedQueue::front()
 {
-    if(isEmpty())
+    if(!isEmpty())
+    {
+        return L.peek();
+    }
+    else
     {
         cout << "Front of an empty queue." << endl;
+        return NULL;
     }
-    return L.removeFront();
 }
 
 template <typename E>
 void LinkedQueue::enqueue(E& e)
 {
-    L.insertFront(e);
+    L.insertBack(e);
     n++;
 }
 
 template <typename E>
-void LinkedQueue::dequeue()
+E& LinkedQueue::dequeue()
 {
-    if(isEmpty())
+    if(!isEmpty())
+    {
+        n--;
+        return L.removeFront();
+    }
+    else
     {
         cout << "Dequeue of an empty queue." << endl;
+        return NULL;
     }
-    L.removeFront();
-    n--;
 }
