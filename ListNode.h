@@ -6,8 +6,8 @@ template <typename E> // allows node to hold any kind of data
 class ListNode
 {
     public:
-        ListNode *next;
-        ListNode *prev;
+        ListNode<E> *next;
+        ListNode<E> *prev;
         E data;
 
         //constructor/destructor
@@ -17,20 +17,22 @@ class ListNode
 };
 
 template <typename E>
-ListNode::ListNode()
+ListNode<E>::ListNode()
 {
-
+  next = NULL;
+  prev = NULL;
+  data = NULL;
 }
 
 template <typename E>
-ListNode::~ListNode()
+ListNode<E>::~ListNode()
 {
     next = NULL;
     prev = NULL;
 }
 
 template <typename E>
-ListNode::ListNode(E d)
+ListNode<E>::ListNode(E d)
 {
     data = d;
     next = NULL; // nullptr

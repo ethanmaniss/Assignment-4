@@ -12,42 +12,42 @@ class LinkedQueue
 
         int size();
         bool isEmpty();
-        E& front()
-        void enqueue(E& e);
-        void dequeue();
+        E& front();
+        void enqueue(E e);
+        E dequeue();
 
     private:
-        DoublyLinkedList L; // double linked list version of a queue
+        DoublyLinkedList<E> L; // double linked list version of a queue
         int n; // number of elements in list
 };
 
 template <typename E>
-LinkedQueue::LinkedQueue() // default constructor
+LinkedQueue<E>::LinkedQueue() // default constructor
 {
-    DoublyLinkedList L = DoublyLinkedList();
+    L = DoublyLinkedList<E>();
     n = 0;
 }
 
 template <typename E>
-LinkedQueue::~LinkedQueue() // destructor
+LinkedQueue<E>::~LinkedQueue() // destructor
 {
 
 }
 
 template <typename E>
-int LinkedQueue::size()
+int LinkedQueue<E>::size()
 {
     return n;
 }
 
 template <typename E>
-bool LinkedQueue::isEmpty()
+bool LinkedQueue<E>::isEmpty()
 {
     return(n == 0);
 }
 
 template <typename E>
-E& LinkedQueue::front()
+E& LinkedQueue<E>::front()
 {
     if(isEmpty())
     {
@@ -57,19 +57,19 @@ E& LinkedQueue::front()
 }
 
 template <typename E>
-void LinkedQueue::enqueue(E& e)
+void LinkedQueue<E>::enqueue(E e)
 {
     L.insertFront(e);
     n++;
 }
 
 template <typename E>
-void LinkedQueue::dequeue()
+E LinkedQueue<E>::dequeue()
 {
     if(isEmpty())
     {
         cout << "Dequeue of an empty queue." << endl;
     }
-    L.removeFront();
     n--;
+    return L.removeFront();
 }
