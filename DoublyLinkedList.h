@@ -1,14 +1,15 @@
 #include "ListNode.h"
+#include "GenLinkedList.h"
 #include <iostream>
 
 using namespace std;
 
 template <typename E> // allows doubly linked list to hold any kind of data
-class DoublyLinkedList
+class DoublyLinkedList : public GenLinkedList
 {
     private:
-        ListNode *front;
-        ListNode *back;
+        ListNode<E> *front;
+        ListNode<E> *back;
         unsigned int size;
 
     public:
@@ -20,6 +21,7 @@ class DoublyLinkedList
         E removeFront();
         E removeBack();
 <<<<<<< HEAD
+<<<<<<< HEAD
         E remove(E d); // removeAt()
         E find(int d); // contains()
 =======
@@ -30,14 +32,18 @@ class DoublyLinkedList
 =======
 >>>>>>> da6b65bcb8f0d828b174521aa79391deb2f3b127
 >>>>>>> 8eca9a9ba0e4bf10afdc49c9dc7d57b1f7f938a3
+=======
+        ListNode<E>* remove(E d); // remove node containing d
+>>>>>>> 6af24516d4be7cea8b76bb4ab6c47d28eed27114
 
+        // helper functions
         bool isEmpty();
         void printList();
         unsigned int getSize();
 };
 
 template <typename E>
-DoublyLinkedList::DoublyLinkedList()
+DoublyLinkedList<E>::DoublyLinkedList()
 {
     size = 0;
     front = NULL;
@@ -45,22 +51,22 @@ DoublyLinkedList::DoublyLinkedList()
 }
 
 template <typename E>
-DoublyLinkedList::~DoublyLinkedList()
+DoublyLinkedList<E>::~DoublyLinkedList()
 {
     // research it
     // you will have to iterate through the list
     for(int i = 0; i < size; i++)
     {
-        ListNode *node = front;
+        ListNode<E> *node = front;
         front = front->next;
         delete node;
     }
 }
 
 template <typename E>
-void DoublyLinkedList::insertFront(E d)
+void DoublyLinkedList<E>::insertFront(E d)
 {
-    ListNode *node = new ListNode(d);
+    ListNode<E> *node = new ListNode<E>(d);
 
     if(isEmpty())
     {
@@ -79,11 +85,11 @@ void DoublyLinkedList::insertFront(E d)
 }
 
 template <typename E>
-E DoublyLinkedList::removeFront()
+E DoublyLinkedList<E>::removeFront()
 {
     // check if it's empty before proceeding
 
-    ListNode *ft = front; // temporary variable to hold the data in the front
+    ListNode<E> *ft = front; // temporary variable to hold the data in the front
 
     if(front->next == NULL) // size == 1 or front = back
     {
@@ -97,7 +103,7 @@ E DoublyLinkedList::removeFront()
     }
     front = front->next;
     ft->next = NULL;
-    int temp = ft->data;
+    E temp = ft->data;
     delete ft;
     size--;
 
@@ -105,9 +111,9 @@ E DoublyLinkedList::removeFront()
 }
 
 template <typename E>
-void DoublyLinkedList::insertBack(E d)
+void DoublyLinkedList<E>::insertBack(E d)
 {
-    ListNode *node = new ListNode(d);
+    ListNode<E> *node = new ListNode<E>(d);
 
     if(isEmpty()) // size == 0
     {
@@ -126,11 +132,11 @@ void DoublyLinkedList::insertBack(E d)
 }
 
 template <typename E>
-E DoublyLinkedList::removeBack()
+E DoublyLinkedList<E>::removeBack()
 {
     // check if the list is empty
 
-    ListNode *bk = back; // temporary variable to hold data in the back
+    ListNode<E> *bk = back; // temporary variable to hold data in the back
 
     if(back->prev == NULL) // size == 1 or front = back
     {
@@ -151,11 +157,11 @@ E DoublyLinkedList::removeBack()
 }
 
 template <typename E>
-ListNode* DoublyLinkedList::remove(E d) // aka int key
+ListNode<E>* DoublyLinkedList<E>::remove(E d) // aka int key
 {
     // check if it's empty before attempting to remove
 
-    ListNode *curr = front;
+    ListNode<E> *curr = front;
 
     while(curr->data != d)
     {
@@ -199,15 +205,14 @@ ListNode* DoublyLinkedList::remove(E d) // aka int key
     return curr;
 }
 
-// use method from singly linked list to build insert() method
-
 template <typename E>
-bool DoublyLinkedList::isEmpty()
+bool DoublyLinkedList<E>::isEmpty()
 {
     return (front == NULL);
 }
 
 template <typename E>
+<<<<<<< HEAD
 E& DoublyLinkedList::peek()
 {
     if(!isEmpty())
@@ -219,4 +224,20 @@ E& DoublyLinkedList::peek()
         cout << "Linked List is empty." << endl;
         return NULL;
     }
+=======
+unsigned int DoublyLinkedList<E>::getSize()
+{
+  return size;
+}
+
+template <typename E>
+void DoublyLinkedList<E>::printList()
+{
+  ListNode<E>* current = front;
+  while (current != NULL)
+  {
+    cout << current->data << endl;
+    current = current->next;
+  }
+>>>>>>> 6af24516d4be7cea8b76bb4ab6c47d28eed27114
 }

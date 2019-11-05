@@ -9,9 +9,7 @@ class GenLinkedList
     //destructor
     virtual ~GenLinkedList() = 0;
 
-    virtual void removeFront() = 0;
-    virtual void removeBack() = 0;
     virtual bool isEmpty() = 0;
     virtual void printList() = 0;
     virtual unsigned int getSize() = 0;
-}
+};
