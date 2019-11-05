@@ -15,13 +15,21 @@ class DoublyLinkedList
         DoublyLinkedList();
         ~DoublyLinkedList();
 
-        void insertFront(E d);
-        void insertBack(E d);
+        void insertFront(E data);
+        void insertBack(E data);
         E removeFront();
         E removeBack();
+<<<<<<< HEAD
+        E remove(E d); // removeAt()
+        E find(int d); // contains()
+=======
         E deletePos(int pos); // removeAt()
         E find(E d); // contains()
+<<<<<<< HEAD
         E& peek();
+=======
+>>>>>>> da6b65bcb8f0d828b174521aa79391deb2f3b127
+>>>>>>> 8eca9a9ba0e4bf10afdc49c9dc7d57b1f7f938a3
 
         bool isEmpty();
         void printList();
