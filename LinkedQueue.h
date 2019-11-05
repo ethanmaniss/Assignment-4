@@ -68,11 +68,7 @@ void LinkedQueue<E>::enqueue(E e)
 }
 
 template <typename E>
-<<<<<<< HEAD
-E& LinkedQueue::dequeue()
-=======
 E LinkedQueue<E>::dequeue()
->>>>>>> 6af24516d4be7cea8b76bb4ab6c47d28eed27114
 {
     if(!isEmpty())
     {
@@ -82,11 +78,5 @@ E LinkedQueue<E>::dequeue()
     else
     {
         cout << "Dequeue of an empty queue." << endl;
-        return NULL;
     }
-<<<<<<< HEAD
-=======
-    n--;
-    return L.removeFront();
->>>>>>> 6af24516d4be7cea8b76bb4ab6c47d28eed27114
 }

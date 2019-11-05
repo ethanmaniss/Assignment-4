@@ -1,6 +1,6 @@
-#include "ListNode.h"
-#include "DoublyLinkedList.h"
+#include "LinkedQueue.h"
 #include "Student.h"
+#include "Window.h"
 #include <string> // for string class
 #include <fstream> // for file input/output
 
@@ -16,10 +16,12 @@ class Simulation
         int timeStudentsArrival;
         int numStudentsArriving;
         string fileName;
+        LinkedQueue<Student> q;
 
 
     public:
         Simulation();
+        Simulation(string f);
         ~Simulation();
 
         void runSimulation();
@@ -36,6 +38,17 @@ Simulation::Simulation()
     timeStudentsArrival = 0;
     numStudentsArriving = 0;
     fileName = "";
+    q = new LinkedQueue<Student>();
+}
+
+Simulation::Simulation(string f)
+{
+  fileName = f;
+  currentTime = 0;
+  windowsOpen = 0;
+  timeStudentsArrival = 0;
+  numStudentsArriving = 0;
+  q = new LinkedQueue<Student>();
 }
 
 Simulation::~Simulation()
@@ -47,21 +60,20 @@ void Simulation::fileInput(string f) // string passed in will be the file name
 {
     fileName = f;
 
-    int number;
+    string line = "";
     ifstream file(fileName);
-    if(file.is_open())
+    if(file)
     {
-        getline(file,number);
-        windowsOpen = number;
-        getline(file,number);
-        timeStudentsArrival = number;
-
-        while(getline(file,number))
+        getline(file, line);
+        windowsOpen = stoi(line);
+        getline(file, line);
+        timeStudentsArrival = stoi(line);
+        getline(file, line);
+        numStudentsArriving = stoi(line);
+        for (int i = 0; i < numStudentsArriving; ++i)
         {
-            
+
         }
-
-
         file.close();
     }
     else

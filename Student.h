@@ -9,5 +9,6 @@ class Student
 
     public:
         Student();
+        Student(int tN, int aT);
         ~Student();
 };

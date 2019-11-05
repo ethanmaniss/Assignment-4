@@ -20,21 +20,8 @@ class DoublyLinkedList : public GenLinkedList
         void insertBack(E data);
         E removeFront();
         E removeBack();
-<<<<<<< HEAD
-<<<<<<< HEAD
-        E remove(E d); // removeAt()
-        E find(int d); // contains()
-=======
-        E deletePos(int pos); // removeAt()
-        E find(E d); // contains()
-<<<<<<< HEAD
-        E& peek();
-=======
->>>>>>> da6b65bcb8f0d828b174521aa79391deb2f3b127
->>>>>>> 8eca9a9ba0e4bf10afdc49c9dc7d57b1f7f938a3
-=======
         ListNode<E>* remove(E d); // remove node containing d
->>>>>>> 6af24516d4be7cea8b76bb4ab6c47d28eed27114
+        E& peek();
 
         // helper functions
         bool isEmpty();
@@ -61,6 +48,11 @@ DoublyLinkedList<E>::~DoublyLinkedList()
         front = front->next;
         delete node;
     }
+}
+
+GenLinkedList::~GenLinkedList()
+{
+
 }
 
 template <typename E>
@@ -212,8 +204,7 @@ bool DoublyLinkedList<E>::isEmpty()
 }
 
 template <typename E>
-<<<<<<< HEAD
-E& DoublyLinkedList::peek()
+E& DoublyLinkedList<E>::peek()
 {
     if(!isEmpty())
     {
@@ -224,7 +215,9 @@ E& DoublyLinkedList::peek()
         cout << "Linked List is empty." << endl;
         return NULL;
     }
-=======
+}
+
+template<typename E>
 unsigned int DoublyLinkedList<E>::getSize()
 {
   return size;
@@ -239,5 +232,4 @@ void DoublyLinkedList<E>::printList()
     cout << current->data << endl;
     current = current->next;
   }
->>>>>>> 6af24516d4be7cea8b76bb4ab6c47d28eed27114
 }

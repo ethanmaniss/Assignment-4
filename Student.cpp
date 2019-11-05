@@ -15,7 +15,9 @@ Student::~Student() // student destructor
 
 }
 
-Student::Student(int timeNeeded, int timeWaited, int arrivalTime)
+Student::Student(int tN, int aT)
 {
-
+  timeNeeded = tN;
+  timeWaited = 0;
+  arrivalTime = aT;
 }
