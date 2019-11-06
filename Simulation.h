@@ -17,8 +17,8 @@ class Simulation
         int numStudentsArriving;
         string fileName;
         LinkedQueue<Student> q;
-        
-
+        Window* w;
+        DoublyLinkedList<Student> s;
 
     public:
         Simulation();
@@ -27,6 +27,8 @@ class Simulation
 
         void runSimulation();
         void computeStatistics(Simulation s);
+        bool allWindowsO(); // indicates if all windows are open
+        bool allWindowsC(); // if all windows are closed
 
 
 
@@ -40,6 +42,7 @@ Simulation::Simulation()
     numStudentsArriving = 0;
     fileName = "";
     q = new LinkedQueue<Student>();
+    s = new DoublyLinkedList<Student>();
 }
 
 Simulation::Simulation(string f)
@@ -67,7 +70,7 @@ void Simulation::fileInput(string f) // string passed in will be the file name
     {
         getline(file, line);
         windowsOpen = stoi(line);
-
+        w = new Window[windowsOpen];
         while(getline(file, line))
         {
           timeStudentsArrival = stoi(line);
@@ -75,7 +78,7 @@ void Simulation::fileInput(string f) // string passed in will be the file name
           numStudentsArriving = stoi(line);
           for (int i = 0; i < numStudentsArriving; ++i)
           {
-            Student s(getline(file, line), timeStudentsArrival);
+            Student s = new Student(getline(file, line), timeStudentsArrival);
             q.enqueue(s);
           }
         }
@@ -95,16 +98,76 @@ void Simulation::runSimulation()
     cout << windowsOpen << endl;
     cout << timeStudentsArrival << endl;
     cout << numStudentsArriving << endl;
-    while(!q.isEmpty())
+    while(!q.isEmpty() || !allWindowsO()) // while queue is not empty and all windows are not open
     {
-
-
-
-        currentTime++;
+      if (currentTime == 0) // special case to avoid added extra idle time to windows
+      {
+        while (q.front()->arrivalTime == currentTime && !allWindowsC()) // while there are students arriving at time 0 and there are still open windows
+        {
+          for (int i = 0; i < windowsOpen; ++i)
+          {
+            if (w[i]->currS == NULL) // window open
+              w[i]->currS = q.dequeue();
+          }
+        }
+      }
+      else
+      {
+        for (int i = 0; i < windowsOpen; ++i)
+        {
+          if (w[i]->currS == NULL) // no student at window
+          {
+            ++w[i]->idleTime;
+            if (w]i]->idleTime == 5)
+              w[i]->idleFiveMin = true;
+          }
+          else // student at window
+          {
+            w[i]->currS->timeNeeded--;
+            if (w[i]->currS->timeNeeded == 0) // student finished at window
+            {
+              s.insertBack(w[i]->currS); // adds student to finished student list
+              w[i]->currS = NULL;
+            }
+          }
+        }
+        while (q.front()->arrivalTime <= currentTime && !allWindowsC()) // while student is in queue and there is an open window
+        {
+          for (int i = 0; i < windowsOpen; ++i)
+          {
+            if (w[i]->currS == NULL) // window open
+            {
+              w[i]->currS = q.dequeue();
+              w[i]->currS->timeWaited = currentTime - w[i]->currS->arrivalTime; // sets time waited in queue to current time - time of arrival
+            }
+          }
+        }
+      }
+      currentTime++;
     }
 }
 
 void Simulation::computeStatistics(Simulation s)
 {
 
+}
+
+bool Simulation::allWindowsO() // returns true if all windows are open
+{
+  for (int i = 0; i < windowsOpen; ++i)
+  {
+    if (w[i]->currS != NULL) // someone at window
+      return false;
+  }
+  return true;
+}
+
+bool Simulation::allWindowsC() // returns true if all windows are closed
+{
+  for (int i = 0; i < windowsOpen; ++i)
+  {
+    if (w[i]->currS == NULL) // someone at window
+      return false;
+  }
+  return true;
 }

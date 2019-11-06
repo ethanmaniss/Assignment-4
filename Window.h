@@ -1,12 +1,13 @@
 #include <iostream>
+#include "Student.h"
 
 class Window
 {
-    private:
-        int idleTime;
-        bool idleFiveMin; // has been idle for longer than 5 minutes
-
     public:
         Window();
         ~Window();
+        Student* currS;
+
+        int idleTime;
+        bool idleFiveMin; // idle for longer than 5 minutes
 };

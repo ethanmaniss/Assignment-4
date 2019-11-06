@@ -7,6 +7,7 @@ Window::Window() // default constructor
 {
     idleTime = 0;
     idleFiveMin = NULL;
+    currS = NULL;
 }
 
 Window::~Window() // destructor
