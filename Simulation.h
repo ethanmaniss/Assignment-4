@@ -17,6 +17,7 @@ class Simulation
         int numStudentsArriving;
         string fileName;
         LinkedQueue<Student> q;
+        
 
 
     public:
@@ -66,6 +67,7 @@ void Simulation::fileInput(string f) // string passed in will be the file name
     {
         getline(file, line);
         windowsOpen = stoi(line);
+
         while(getline(file, line))
         {
           timeStudentsArrival = stoi(line);
@@ -88,7 +90,18 @@ void Simulation::fileInput(string f) // string passed in will be the file name
 
 void Simulation::runSimulation()
 {
+    currentTime = 0;
+    cout << currentTime << endl;
+    cout << windowsOpen << endl;
+    cout << timeStudentsArrival << endl;
+    cout << numStudentsArriving << endl;
+    while(!q.isEmpty())
+    {
 
+
+
+        currentTime++;
+    }
 }
 
 void Simulation::computeStatistics(Simulation s)
