@@ -5,7 +5,7 @@
 using namespace std;
 
 template <typename E> // allows doubly linked list to hold any kind of data
-class DoublyLinkedList : public GenLinkedList
+class DoublyLinkedList : public GenLinkedList<E>
 {
     private:
         ListNode<E> *front;
@@ -18,10 +18,10 @@ class DoublyLinkedList : public GenLinkedList
 
         void insertFront(E data);
         void insertBack(E data);
-        E removeFront();
-        E removeBack();
+        ListNode<E>* removeFront();
+        ListNode<E>* removeBack();
         ListNode<E>* remove(E d); // remove node containing d
-        E& peek();
+        ListNode<E>* peek();
 
         // helper functions
         bool isEmpty();
@@ -50,7 +50,8 @@ DoublyLinkedList<E>::~DoublyLinkedList()
     }
 }
 
-GenLinkedList::~GenLinkedList()
+template <typename E>
+GenLinkedList<E>::~GenLinkedList()
 {
 
 }
@@ -77,7 +78,7 @@ void DoublyLinkedList<E>::insertFront(E d)
 }
 
 template <typename E>
-E DoublyLinkedList<E>::removeFront()
+ListNode<E>* DoublyLinkedList<E>::removeFront()
 {
     // check if it's empty before proceeding
 
@@ -95,11 +96,9 @@ E DoublyLinkedList<E>::removeFront()
     }
     front = front->next;
     ft->next = NULL;
-    E temp = ft->data;
-    delete ft;
     size--;
 
-    return temp;
+    return ft;
 }
 
 template <typename E>
@@ -124,7 +123,7 @@ void DoublyLinkedList<E>::insertBack(E d)
 }
 
 template <typename E>
-E DoublyLinkedList<E>::removeBack()
+ListNode<E>* DoublyLinkedList<E>::removeBack()
 {
     // check if the list is empty
 
@@ -141,11 +140,9 @@ E DoublyLinkedList<E>::removeBack()
     }
     back = back->prev;
     bk->prev = NULL;
-    int temp = bk->data;
-    delete bk;
     size--;
 
-    return temp;
+    return bk;
 }
 
 template <typename E>
@@ -204,11 +201,11 @@ bool DoublyLinkedList<E>::isEmpty()
 }
 
 template <typename E>
-E& DoublyLinkedList<E>::peek()
+ListNode<E>* DoublyLinkedList<E>::peek()
 {
     if(!isEmpty())
     {
-        return front->data;
+        return front;
     }
     else
     {

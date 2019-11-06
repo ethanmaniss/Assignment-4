@@ -51,7 +51,7 @@ E& LinkedQueue<E>::front()
 {
     if(!isEmpty())
     {
-        return L.peek();
+        return L.peek()->data;
     }
     else
     {
@@ -73,7 +73,7 @@ E LinkedQueue<E>::dequeue()
     if(!isEmpty())
     {
         n--;
-        return L.removeFront();
+        return L.removeFront()->data;
     }
     else
     {
