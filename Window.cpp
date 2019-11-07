@@ -6,7 +6,6 @@ using namespace std;
 Window::Window() // default constructor
 {
     idleTime = 0;
-    idleFiveMin = NULL;
     currS = NULL;
 }
 

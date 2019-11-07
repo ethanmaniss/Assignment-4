@@ -14,8 +14,8 @@ Simulation::Simulation()
     timeStudentsArrival = 0;
     numStudentsArriving = 0;
     fileName = "";
-    q = new LinkedQueue<Student>();
-    s = new DoublyLinkedList<Student>();
+    q = new LinkedQueue<Student*>();
+    s = new DoublyLinkedList<Student*>();
 }
 
 Simulation::Simulation(string f)
@@ -25,7 +25,7 @@ Simulation::Simulation(string f)
   windowsOpen = 0;
   timeStudentsArrival = 0;
   numStudentsArriving = 0;
-  q = new LinkedQueue<Student>();
+  q = new LinkedQueue<Student*>();
 }
 
 Simulation::~Simulation()
@@ -53,7 +53,7 @@ void Simulation::fileInput(string f) // string passed in will be the file name
           {
             getline(file, line);
             Student* s = new Student(stoi(line), timeStudentsArrival);
-            q->enqueue(s&); // adds students to the queue from the back
+            q->enqueue(s); // adds students to the queue from the back
           }
         }
         file.close(); // closes stream of data
@@ -76,12 +76,12 @@ void Simulation::runSimulation()
     {
       if (currentTime == 0) // special case to avoid added extra idle time to windows
       {
-        while (q->front().arrivalTime == currentTime && !allWindowsC()) // while there are students arriving at time 0 and there are still open windows
+        while (q->front()->arrivalTime == currentTime && !allWindowsC()) // while there are students arriving at time 0 and there are still open windows
         {
           for (int i = 0; i < windowsOpen; ++i)
           {
             if (w[i].currS == NULL) // window open
-              w[i].currS = q->dequeue()&;
+              w[i].currS = q->dequeue();
           }
         }
       }
@@ -92,26 +92,24 @@ void Simulation::runSimulation()
           if (w[i].currS == NULL) // no student at window
           {
             ++w[i].idleTime;
-            if (w[i].idleTime == 5)
-              w[i].idleFiveMin = true;
           }
           else // student at window
           {
             w[i].currS->timeNeeded--;
             if (w[i].currS->timeNeeded == 0) // student finished at window
             {
-              s->insertBack(w[i].currS&); // adds student to finished student list
+              s->insertBack(w[i].currS); // adds student to finished student list
               w[i].currS = NULL;
             }
           }
         }
-        while (q->front().arrivalTime <= currentTime && !allWindowsC()) // while student is in queue and there is an open window
+        while (q->front()->arrivalTime <= currentTime && !allWindowsC()) // while student is in queue and there is an open window
         {
           for (int i = 0; i < windowsOpen; ++i)
           {
             if (w[i].currS == NULL) // window open
             {
-              w[i].currS = q->dequeue()&;
+              w[i].currS = q->dequeue();
               w[i].currS->timeWaited = currentTime - w[i].currS->arrivalTime; // sets time waited in queue to current time - time of arrival
             }
           }
@@ -124,44 +122,45 @@ void Simulation::runSimulation()
 void Simulation::computeStatistics()
 {
     double avgWait; // variable for average student wait time
-    int sWait[s.getSize()];
+    int numStudents = s->getSize();
+    int sWait[numStudents];
     int waitTenMin = 0; // number of students waiting over ten minutes
-    for(int i = 0; i < s->getSize(); ++i) // average student wait time
+    int i = 0;
+    while (!s->isEmpty())
     {
-        avgWait += s[i]->timeWaited;
-        sWait[i] = s[i]->timeWaited; // creates new array of wait time integers
-        if(s[i]->timeWaited >= 10)
-        {
-            waitTenMin++;
-        }
-
+      sWait[i] = s->removeFront()->data->timeWaited;
+      if (sWait[i] >= 10)
+        ++waitTenMin;
+      avgWait += sWait[i];
+      ++i;
     }
-    avgWait = avgWait/s->getSize(); // divides total by size to get avg
+    avgWait = avgWait/numStudents; // divides total by size to get avg
+
 
     double avgIdle; // variable for average window idle time
-    int wIdle[w.getSize()]; // array of window idle time integers
+    int wIdle[windowsOpen]; // array of window idle time integers
     int longestIdle; // longest window idle time
     int max = 0; // max value in window array
     int idleFiveMin = 0; // number of windows idle over five minutes
-    for(int j = 0; j < w.getSize(); ++j)
+    for(int j = 0; j < windowsOpen; ++j)
     {
-        avgIdle += w[j]->idleTime;
-        wIdle[j] = w[j]->idleTime; // creates new array of idle time integers
+        avgIdle += w[j].idleTime;
+        wIdle[j] = w[j].idleTime; // creates new array of idle time integers
         if(wIdle[j] > max)
         {
             longestIdle = max;
         }
-        if(w[j]->idleTime >= 5)
+        if(w[j].idleTime >= 5)
         {
             idleFiveMin++;
         }
     }
-    avgIdle = avgIdle/w.getSize(); // divides total by size to get avg
+    avgIdle = avgIdle/windowsOpen; // divides total by size to get avg
 
     int medianWait; // median student wait time
-    sort(sWait, sWait + s->getSize()); // vars s and sWait have the same size
-    int mid = s->getSize()/2; // middle number of array of wait time integers
-    if(s->getSize() % 2) // if size is even
+    sort(sWait, sWait + numStudents); // vars s and sWait have the same size
+    int mid = numStudents/2; // middle number of array of wait time integers
+    if(numStudents % 2) // if size is even
     {
         medianWait = (sWait[mid] + sWait[mid+1])/2;
     }
@@ -169,7 +168,7 @@ void Simulation::computeStatistics()
     {
         medianWait = sWait[mid]; // just accesses middle number
     }
-    int longestWait = sWait[s->getSize()-1]; // longest student wait time
+    int longestWait = sWait[numStudents-1]; // longest student wait time
 
     cout << "Mean student wait time: " << avgWait << endl;
     cout << "Median student wait time: " << medianWait << endl;
@@ -184,7 +183,7 @@ bool Simulation::allWindowsO() // returns true if all windows are open
 {
   for (int i = 0; i < windowsOpen; ++i)
   {
-    if (w[i]->currS != NULL) // someone at window
+    if (w[i].currS != NULL) // someone at window
       return false;
   }
   return true;
@@ -194,7 +193,7 @@ bool Simulation::allWindowsC() // returns true if all windows are closed
 {
   for (int i = 0; i < windowsOpen; ++i)
   {
-    if (w[i]->currS == NULL) // someone at window
+    if (w[i].currS == NULL) // someone at window
       return false;
   }
   return true;

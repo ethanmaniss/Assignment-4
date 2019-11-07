@@ -1,5 +1,4 @@
 #include "LinkedQueue.h"
-#include "Student.h"
 #include "Window.h"
 #include <string> // for string class
 
@@ -15,9 +14,9 @@ class Simulation
         int timeStudentsArrival;
         int numStudentsArriving;
         string fileName;
-        LinkedQueue<Student>* q;
+        LinkedQueue<Student*>* q;
         Window* w;
-        DoublyLinkedList<Student>* s;
+        DoublyLinkedList<Student*>* s;
 
     public:
         Simulation();

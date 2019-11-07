@@ -56,7 +56,6 @@ E& LinkedQueue<E>::front()
     else
     {
         cout << "Front of an empty queue." << endl;
-        return NULL;
     }
 }
 
