@@ -8,7 +8,7 @@ class ListNode
     public:
         ListNode<E> *next;
         ListNode<E> *prev;
-        E data;
+        E data; // E can be any element of data
 
         //constructor/destructor
         ListNode();

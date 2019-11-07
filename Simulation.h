@@ -24,7 +24,7 @@ class Simulation
         Simulation(string f);
         ~Simulation();
 
-        void fileInput(string f);
+        void fileInput(string f); // gets simulation parameters for statistics
         void runSimulation();
         void computeStatistics();
         bool allWindowsO(); // indicates if all windows are open
