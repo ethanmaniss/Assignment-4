@@ -17,7 +17,7 @@ class ListNode
 };
 
 template <typename E>
-ListNode<E>::ListNode()
+ListNode<E>::ListNode() // default constructor
 {
   next = NULL;
   prev = NULL;
@@ -25,14 +25,14 @@ ListNode<E>::ListNode()
 }
 
 template <typename E>
-ListNode<E>::~ListNode()
+ListNode<E>::~ListNode() // destructor
 {
     next = NULL;
     prev = NULL;
 }
 
 template <typename E>
-ListNode<E>::ListNode(E d)
+ListNode<E>::ListNode(E d) // overloaded constructor
 {
     data = d;
     next = NULL; // nullptr
