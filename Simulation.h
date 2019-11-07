@@ -15,15 +15,16 @@ class Simulation
         int timeStudentsArrival;
         int numStudentsArriving;
         string fileName;
-        LinkedQueue<Student> q;
+        LinkedQueue<Student>* q;
         Window* w;
-        DoublyLinkedList<Student> s;
+        DoublyLinkedList<Student>* s;
 
     public:
         Simulation();
         Simulation(string f);
         ~Simulation();
 
+        void fileInput(string f);
         void runSimulation();
         void computeStatistics();
         bool allWindowsO(); // indicates if all windows are open
