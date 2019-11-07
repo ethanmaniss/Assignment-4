@@ -1,3 +1,9 @@
+/*
+* Ethan Dang, Ethan Mannis
+* CPSC 350-01/02
+* Assignment 4
+* LinkedNode class for linked list 
+*/
 #include <iostream>
 
 using namespace std;
@@ -29,6 +35,7 @@ ListNode<E>::~ListNode() // destructor
 {
     next = NULL;
     prev = NULL;
+    delete data;
 }
 
 template <typename E>

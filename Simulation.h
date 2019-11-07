@@ -1,3 +1,9 @@
+/*
+* Ethan Dang, Ethan Mannis
+* CPSC 350-01/02
+* Assignment 4
+* Simulation header file
+*/
 #include "LinkedQueue.h"
 #include "Window.h"
 #include <string> // for string class
@@ -19,11 +25,12 @@ class Simulation
         DoublyLinkedList<Student*>* s;
 
     public:
+        // constructor and destructor
         Simulation();
         Simulation(string f);
         ~Simulation();
 
-        void fileInput(string f); // gets simulation parameters for statistics
+        void fileInput(); // gets simulation parameters for statistics
         void runSimulation();
         void computeStatistics();
         bool allWindowsO(); // indicates if all windows are open

@@ -1,17 +1,25 @@
+/*
+* Ethan Dang, Ethan Mannis
+* CPSC 350-01/02
+* Assignment 4
+* Main class, runs methods for simulation object
+*/
 #include <iostream>
-#include "LinkedQueue.h"
+#include "Simulation.h"
 
 using namespace std;
 
 int main(int argc, char** argv)
 {
-  LinkedQueue<int> test;
-  for (int i = 0; i < 10; ++i)
+  if (argc == 2)
   {
-    test.enqueue(i);
+    Simulation s(argv[1]);
+    s.fileInput();
+    s.runSimulation();
+    s.computeStatistics();
   }
-  for (int i = 0; i < 10; ++i)
+  else
   {
-    cout << test.dequeue() << endl;
+    cout << "Error: improper format, try again" << endl;
   }
 }

@@ -1,3 +1,9 @@
+/*
+* Ethan Dang, Ethan Mannis
+* CPSC 350-01/02
+* Assignment 4
+* Simulation implementation file
+*/
 #include "Simulation.h"
 #include <string> // for string class
 #include <fstream> // for file input/output
@@ -7,6 +13,7 @@
 
 using namespace std;
 
+// default constructor
 Simulation::Simulation()
 {
     currentTime = 0;
@@ -18,6 +25,7 @@ Simulation::Simulation()
     s = new DoublyLinkedList<Student*>();
 }
 
+// overloaded constructor
 Simulation::Simulation(string f)
 {
   fileName = f;
@@ -28,15 +36,17 @@ Simulation::Simulation(string f)
   q = new LinkedQueue<Student*>();
 }
 
+// destructor
 Simulation::~Simulation()
 {
-
+  delete q;
+  delete s;
+  delete []w;
 }
 
-void Simulation::fileInput(string f) // string passed in will be the file name
+// takes info from text file, creates student and adds to queue
+void Simulation::fileInput()
 {
-    fileName = f;
-
     string line = "";
     ifstream file(fileName); // opens stream of data from file to program
     if(file)
@@ -44,6 +54,10 @@ void Simulation::fileInput(string f) // string passed in will be the file name
         getline(file, line);
         windowsOpen = stoi(line); // gets number of windows open and converts string to int
         w = new Window[windowsOpen]; // creates array of windows, will be size of windowsOpen
+        for (int i = 0; i < windowsOpen; ++i)
+        {
+          w[i] = *new Window();
+        }
         while(getline(file, line))
         {
           timeStudentsArrival = stoi(line);
@@ -65,18 +79,15 @@ void Simulation::fileInput(string f) // string passed in will be the file name
 
 }
 
+// runs Simulation and calcs wait times and idle times
 void Simulation::runSimulation()
 {
     currentTime = 0;
-    cout << currentTime << endl; // these print statements are just for reference
-    cout << windowsOpen << endl;
-    cout << timeStudentsArrival << endl;
-    cout << numStudentsArriving << endl;
     while(!q->isEmpty() || !allWindowsO()) // while queue is not empty and all windows are not open
     {
       if (currentTime == 0) // special case to avoid added extra idle time to windows
       {
-        while (q->front()->arrivalTime == currentTime && !allWindowsC()) // while there are students arriving at time 0 and there are still open windows
+        while (!q->isEmpty() && q->front()->arrivalTime == currentTime && !allWindowsC()) // while there are students arriving at time 0 and there are still open windows
         {
           for (int i = 0; i < windowsOpen; ++i)
           {
@@ -98,16 +109,17 @@ void Simulation::runSimulation()
             w[i].currS->timeNeeded--;
             if (w[i].currS->timeNeeded == 0) // student finished at window
             {
-              s->insertBack(w[i].currS); // adds student to finished student list
+              Student* temp = w[i].currS;
+              s->insertBack(temp); // adds student to finished student list
               w[i].currS = NULL;
             }
           }
         }
-        while (q->front()->arrivalTime <= currentTime && !allWindowsC()) // while student is in queue and there is an open window
+        while (!q->isEmpty() && q->front()->arrivalTime <= currentTime && !allWindowsC()) // while student is in queue and there is an open window
         {
           for (int i = 0; i < windowsOpen; ++i)
           {
-            if (w[i].currS == NULL) // window open
+            if (w[i].currS == NULL && !q->isEmpty()) // window open
             {
               w[i].currS = q->dequeue();
               w[i].currS->timeWaited = currentTime - w[i].currS->arrivalTime; // sets time waited in queue to current time - time of arrival
@@ -119,6 +131,7 @@ void Simulation::runSimulation()
     }
 }
 
+// calculates statistics after simulation has been run
 void Simulation::computeStatistics()
 {
     double avgWait; // variable for average student wait time
@@ -169,6 +182,8 @@ void Simulation::computeStatistics()
         medianWait = sWait[mid]; // just accesses middle number
     }
     int longestWait = sWait[numStudents-1]; // longest student wait time
+
+    cout << "sim and stats done" << endl;
 
     cout << "Mean student wait time: " << avgWait << endl;
     cout << "Median student wait time: " << medianWait << endl;

@@ -1,3 +1,9 @@
+/*
+* Ethan Dang, Ethan Mannis
+* CPSC 350-01/02
+* Assignment 4
+* DoublyLinkedList template class
+*/
 #include "ListNode.h"
 #include "GenLinkedList.h"
 #include <iostream>
@@ -29,6 +35,7 @@ class DoublyLinkedList : public GenLinkedList<E>
         unsigned int getSize();
 };
 
+// default constructor
 template <typename E>
 DoublyLinkedList<E>::DoublyLinkedList()
 {
@@ -37,11 +44,10 @@ DoublyLinkedList<E>::DoublyLinkedList()
     back = NULL;
 }
 
+// destructor
 template <typename E>
 DoublyLinkedList<E>::~DoublyLinkedList()
 {
-    // research it
-    // you will have to iterate through the list
     for(int i = 0; i < size; i++)
     {
         ListNode<E> *node = front;
@@ -50,12 +56,14 @@ DoublyLinkedList<E>::~DoublyLinkedList()
     }
 }
 
+// virtual destructor
 template <typename E>
 GenLinkedList<E>::~GenLinkedList()
 {
 
 }
 
+// inserts new node with data d to front
 template <typename E>
 void DoublyLinkedList<E>::insertFront(E d)
 {
@@ -77,6 +85,7 @@ void DoublyLinkedList<E>::insertFront(E d)
 
 }
 
+// removes and returns node in front
 template <typename E>
 ListNode<E>* DoublyLinkedList<E>::removeFront()
 {
@@ -101,11 +110,11 @@ ListNode<E>* DoublyLinkedList<E>::removeFront()
     return ft;
 }
 
+// inserts node with data d and inserts to back
 template <typename E>
 void DoublyLinkedList<E>::insertBack(E d)
 {
     ListNode<E> *node = new ListNode<E>(d);
-
     if(isEmpty()) // size == 0
     {
         // we have an empty list
@@ -116,12 +125,12 @@ void DoublyLinkedList<E>::insertBack(E d)
         // not an empty list
         back->next = node;
         node->prev = back;
-
     }
     back = node;
     size++;
 }
 
+// removes and returns node at back of list
 template <typename E>
 ListNode<E>* DoublyLinkedList<E>::removeBack()
 {
@@ -145,6 +154,7 @@ ListNode<E>* DoublyLinkedList<E>::removeBack()
     return bk;
 }
 
+// removes node containing data d
 template <typename E>
 ListNode<E>* DoublyLinkedList<E>::remove(E d) // aka int key
 {
@@ -194,12 +204,14 @@ ListNode<E>* DoublyLinkedList<E>::remove(E d) // aka int key
     return curr;
 }
 
+// indicates if list is empty
 template <typename E>
 bool DoublyLinkedList<E>::isEmpty()
 {
     return (front == NULL);
 }
 
+// returns front of list but does not remove
 template <typename E>
 ListNode<E>* DoublyLinkedList<E>::peek()
 {
@@ -214,12 +226,14 @@ ListNode<E>* DoublyLinkedList<E>::peek()
     }
 }
 
+// returns size of list
 template<typename E>
 unsigned int DoublyLinkedList<E>::getSize()
 {
   return size;
 }
 
+// prints every value in list
 template <typename E>
 void DoublyLinkedList<E>::printList()
 {

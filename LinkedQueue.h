@@ -1,3 +1,9 @@
+/*
+* Ethan Dang, Ethan Mannis
+* CPSC 350-01/02
+* Assignment 4
+* LinkedQueue template class
+*/
 #include "DoublyLinkedList.h"
 #include <iostream>
 
@@ -12,7 +18,7 @@ class LinkedQueue
 
         int size();
         bool isEmpty();
-        E& front();
+        E front();
         void enqueue(E e);
         E dequeue();
 
@@ -34,20 +40,23 @@ LinkedQueue<E>::~LinkedQueue() // destructor
 
 }
 
+// returns size
 template <typename E>
 int LinkedQueue<E>::size()
 {
     return n;
 }
 
+// returns true if empty
 template <typename E>
 bool LinkedQueue<E>::isEmpty()
 {
     return(n == 0);
 }
 
+// returns data in front of queue but does not remove
 template <typename E>
-E& LinkedQueue<E>::front()
+E LinkedQueue<E>::front()
 {
     if(!isEmpty())
     {
@@ -59,6 +68,7 @@ E& LinkedQueue<E>::front()
     }
 }
 
+// adds node to back of linked list/queue
 template <typename E>
 void LinkedQueue<E>::enqueue(E e)
 {
@@ -66,6 +76,7 @@ void LinkedQueue<E>::enqueue(E e)
     n++;
 }
 
+// removes node from front of linked list/queue
 template <typename E>
 E LinkedQueue<E>::dequeue()
 {
